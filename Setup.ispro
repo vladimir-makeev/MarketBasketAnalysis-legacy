@@ -1,0 +1,46 @@
+﻿; InstallSimple project
+
+[Setup]
+WindowTitle=Установка системы анализа рыночной корзины
+ProductName=Система анализа рыночной корзины
+
+[Graphics]
+SplashScreen=
+SplashScreenDelay=3
+Header=
+HeaderJustify=Right
+HeaderFontColor=0
+WizardBitmap=
+WizardFontColor=0
+
+[FirstMessage]
+Система анализа рыночной корзины направлена на поиск и анализ ассоциативных правил, формируемых из транзакций, представляющих списки приобретенных покупателем товаров.
+Возможности системы:
+1) поиск сильных и обобщенных ассоциативных правил;
+2) отображение найденных правил в виде таблицы, графа;
+3) поиск максимальных подграфов графа ассоциативных правил;
+4) поиск общих и уникальных элементов списков ассоциативных правил;
+5) импорт, экспорт найденных правил ассоциаций.
+[LastMessage]
+
+[LicenseAgreement]
+
+[SetupFiles]
+SourceFolder=
+SpecialFolder=Program Files
+SetupPath=MarketBasketAnalysis
+SetupFile=
+
+[Shortcuts]
+ProgramGroup=
+
+[Registry]
+
+[Requirements]
+OperatingSystem=4
+NetFramework=0
+NetFrameworkLink=http://www.microsoft.com/en-us/download/details.aspx?id=17718
+AdminRights=0
+
+[AfterInstalling]
+Reboot=0

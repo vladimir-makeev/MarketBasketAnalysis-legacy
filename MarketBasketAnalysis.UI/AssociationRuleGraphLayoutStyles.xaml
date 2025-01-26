@@ -1,0 +1,19 @@
+﻿<ResourceDictionary
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:local="clr-namespace:MarketBasketAnalysis.UI"
+      xmlns:graph="clr-namespace:GraphSharp.Controls;assembly=GraphSharp.Controls">
+    <Style TargetType="local:AssociationRuleGraphLayout">
+        <Setter Property="LayoutAlgorithmType" Value="KK"/>
+        <Setter Property="OverlapRemovalAlgorithmType" Value="FSA"/>
+        <Setter Property="HighlightAlgorithmType" Value="Simple"/>
+    </Style>
+    <Style TargetType="graph:VertexControl">
+        <Setter Property="Background" Value="#17B9BB"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="ToolTip" Value="{Binding Vertex, RelativeSource={RelativeSource Self}, Converter={StaticResource VertexToTooltipConverter}}"/>
+    </Style>
+    <Style TargetType="graph:EdgeControl">
+        <Setter Property="Background" Value="Black"/>
+        <Setter Property="ToolTip" Value="{Binding Edge, RelativeSource={RelativeSource Self}, Converter={StaticResource EdgeToTooltipConverter}}"/>
+    </Style>
+</ResourceDictionary>

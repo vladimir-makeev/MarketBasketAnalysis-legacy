@@ -1,0 +1,144 @@
+﻿<ContentControl x:Class="MarketBasketAnalysis.UI.SettingsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:MarketBasketAnalysis.UI"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:mining="clr-namespace:MarketBasketAnalysis.DomainModel.AssociationRules.Mining;assembly=MarketBasketAnalysis.DomainModel"
+             Tag="Настройки"
+             Name="MainControl">
+    <Grid x:Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Label Content="Неучитываемые элементы:" FontWeight="Bold"/>
+            <DataGrid Grid.Row="1" x:Name="ItemDeletionRulesDataGrid" IsReadOnly="True"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <DataGrid.ColumnHeaderStyle>
+                    <Style BasedOn="{StaticResource MetroDataGridColumnHeader}" TargetType="DataGridColumnHeader">
+                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Элемент" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Item1, Mode=OneWay}" IsReadOnly="True"
+                                         VerticalContentAlignment="Center" BorderThickness="0"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridCheckBoxColumn Header="Точное соответствие" Binding="{Binding Item2, Mode=OneWay}"
+                                            Width="auto"/>
+                    <DataGridTemplateColumn Width="50">
+                        <DataGridTemplateColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="BorderBrush" Value="White"/>
+                            </Style>
+                        </DataGridTemplateColumn.HeaderStyle>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button HorizontalAlignment="Center"
+                                        Command="{Binding DataContext.RemoveItemDeletionRuleCommand,
+                                                  ElementName=ItemDeletionRulesDataGrid}"
+                                        CommandParameter="{Binding .}">
+                                    <icons:Modern Kind="Close"/>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Grid Grid.Row="2" Margin="0 10 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBox x:Name="ItemTextBox"
+                         controls:TextBoxHelper.ClearTextButton="True"/>
+                <CheckBox Grid.Row="1" x:Name="ExactMatchCheckBox" Content="Точное соответствие" Margin="0 5 0 0"/>
+                <Button Grid.Column="1" Content="Добавить" Margin="10 0 0 0" Click="AddItemDeletionRuleClick"
+                        VerticalAlignment="Stretch"/>
+            </Grid>
+        </Grid>
+        <Grid Grid.Column="1" Margin="10 0 10 25">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Label Content="Замена товаров группами товаров:" FontWeight="Bold"/>
+            <DataGrid Grid.Row="1" x:Name="ItemReplacementRulesDataGrid" IsReadOnly="True"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <DataGrid.ColumnHeaderStyle>
+                    <Style BasedOn="{StaticResource MetroDataGridColumnHeader}" TargetType="DataGridColumnHeader">
+                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Группа товаров" Binding="{Binding Item1}" Width="*"/>
+                    <DataGridTextColumn Header="Область действия" Binding="{Binding Item2, Converter={StaticResource ReplacementScopeToStringConverter}}" Width="auto"/>
+                    <DataGridTemplateColumn Width="50">
+                        <DataGridTemplateColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="BorderBrush" Value="White"/>
+                            </Style>
+                        </DataGridTemplateColumn.HeaderStyle>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button HorizontalAlignment="Center"
+                                        Command="{Binding DataContext.RemoveItemReplacementRuleCommand,
+                                                  ElementName=ItemReplacementRulesDataGrid}"
+                                        CommandParameter="{Binding .}">
+                                    <icons:Modern Kind="Close"/>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Grid Grid.Row="2" Margin="0 10 0 0" VerticalAlignment="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox x:Name="ArticleGroupComboBox" IsEditable="True"/>
+                <ComboBox Grid.Column="1" x:Name="ReplacementScopeComboBox" SelectedIndex="0" Margin="10 0 0 0">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource ReplacementScopeToStringConverter}}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                    <ComboBox.Items>
+                        <mining:ReplacementScope>LeftHandSide</mining:ReplacementScope>
+                        <mining:ReplacementScope>RightHandSide</mining:ReplacementScope>
+                        <mining:ReplacementScope>BothHandSides</mining:ReplacementScope>
+                    </ComboBox.Items>
+                </ComboBox>
+                <Button Grid.Column="2" Content="Добавить" Margin="10 0 0 0" Click="AddItemReplacementRuleClick"
+                        VerticalAlignment="Stretch"/>
+            </Grid>
+        </Grid>
+        <Button Grid.Row="2" Grid.ColumnSpan="2" Content="Сохранить настройки" VerticalAlignment="Center"
+                HorizontalAlignment="Center" Margin="0 0 0 10" Click="SaveSettingsClick"/>
+    </Grid>
+</ContentControl>

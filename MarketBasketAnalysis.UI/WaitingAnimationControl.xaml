@@ -1,0 +1,16 @@
+﻿<ContentControl x:Class="MarketBasketAnalysis.UI.WaitingAnimationControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             mc:Ignorable="d" Panel.ZIndex="1">
+    <Border Padding="10" Background="{StaticResource ControlBackgroundBrush}"
+            BorderThickness="1" BorderBrush="White"
+            HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel Orientation="Horizontal">
+            <controls:ProgressRing Height="25" Width="25"/>
+            <Label x:Name="TitleLabel" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </StackPanel>
+    </Border>
+</ContentControl>
